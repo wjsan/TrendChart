@@ -77,13 +77,40 @@ namespace TrendChart
 
         public void OpenFiles(string[] files)
         {
+            Dictionary<string, List<Dat>> dic = new Dictionary<string, List<Dat>>();
 
-        }
+            foreach (var file in files)
+            {
+                var jsonStr = File.ReadAllText(file);
+                var data = JsonConvert.DeserializeObject<Dictionary<string, List<Dat>>>(jsonStr);
 
-        public void OpenFile(string file)
-        {
-            var jsonStr = File.ReadAllText(file);
-            var data = JsonConvert.DeserializeObject<List<Dat>>(jsonStr);
+                foreach (var item in data)
+                {
+                    if (dic.ContainsKey(item.Key))
+                    {
+                        dic[item.Key].AddRange(item.Value);
+                    }
+                    else
+                    {
+                        dic.Add(item.Key, item.Value);
+                    }
+                }
+            }
+
+            foreach (var item in dic)
+            {
+                var interval = item.Value.Count / Settings.Axis.X.Size;
+                var length = item.Value.Count;
+                int incr = Convert.ToInt32(interval);
+
+                if (incr == 0) incr = 1;
+
+                for (int i = 0; i < length; i += incr)
+                {
+                    var dat = item.Value[i];
+                    AddData(item.Key, dat.Value, dat.Time);
+                }
+            }
         }
 
         public void AddText(string text)
