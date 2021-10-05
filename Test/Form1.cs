@@ -23,7 +23,6 @@ namespace Test
             trend.AddData("Digital 2", DateTime.Now.Second % 2 != 0, time);
             trend.AddData("Analog", DateTime.Now.Millisecond + (DateTime.Now.Second * 1000),time);
 
-            time = DateTime.Now.ToString("MM/dd/yyyy ") + time;
             datalogger.AddData("Digital 1", DateTime.Now.Second % 2 == 0, time);
             datalogger.AddData("Digital 2", DateTime.Now.Second % 2 != 0, time);
             datalogger.AddData("Analog", DateTime.Now.Millisecond + (DateTime.Now.Second * 1000), time);
