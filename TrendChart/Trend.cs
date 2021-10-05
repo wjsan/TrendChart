@@ -77,30 +77,25 @@ namespace TrendChart
 
         public void OpenFiles(string[] files)
         {
-            Clear();
 
-            foreach (var file in files)
-            {
-                OpenFile(file);
-            }
-            MoveEnabled = true;
         }
 
         public void OpenFile(string file)
         {
             var jsonStr = File.ReadAllText(file);
             var data = JsonConvert.DeserializeObject<List<Dat>>(jsonStr);
-
-            foreach (Dat dat in data)
-            {
-                var trendIdx = AddData(dat.Name, dat.Value, dat.Time, false);
-            }
         }
 
-        public int AddData(string name, object value, string time, bool removeInvisiblePoints = true)
+        public void AddText(string text)
+        {
+            tbLog.AppendText(text + '\n');
+        }
+
+        public int AddData(string name, dynamic value, string time, bool removeInvisiblePoints = true, bool createNewArea = false)
         {
             var trendIdx = 0;
-            var series = GetSeries(name, value);
+            var series = GetSeries(name, value, createNewArea);
+
             if (value == null) return 0;
             if (value is bool)
             {
@@ -137,7 +132,7 @@ namespace TrendChart
             return cont;
         }
 
-        private Series GetSeries(string name, object value)
+        private Series GetSeries(string name, object value, bool createNewArea = false)
         {
             if (digSeries.ContainsKey(name))
             {
@@ -148,7 +143,7 @@ namespace TrendChart
                 return analogSeries[name];
             }
             var newSeries = chart.Series.Add(name);
-            ConfigureSeries(ref newSeries, value);
+            ConfigureSeries(ref newSeries, value, createNewArea);
             return newSeries;
         }
 
@@ -169,7 +164,7 @@ namespace TrendChart
             return chartArea;
         }
 
-        private void ConfigureSeries(ref Series series, object value)
+        private void ConfigureSeries(ref Series series, object value, bool createNewArea = false)
         {
             if (value is bool)
             {
@@ -180,8 +175,23 @@ namespace TrendChart
             }
             else
             {
-                var newChart = new ChartArea(series.Name);
-                ConfigureNewChart(ref newChart);
+                ChartArea newChart;
+                if (createNewArea)
+                {
+                    newChart = new ChartArea(series.Name);
+                    ConfigureNewChart(ref newChart);
+                }
+                else
+                {
+                    newChart = chart.ChartAreas.FindByName("AnalogChartArea");
+                    if (newChart == null)
+                    {
+                        newChart = new ChartArea();
+                        newChart.Name = "AnalogChartArea";
+                        ConfigureNewChart(ref newChart);
+                        newChart.AxisY.Enabled = AxisEnabled.True;
+                    }
+                }
 
                 analogSeries.Add(series.Name, series);
                 series.ChartType = SeriesChartType.Line;
