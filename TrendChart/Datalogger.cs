@@ -51,13 +51,11 @@ namespace TrendChart
 
     public class Dat
     {
-        public string Name { get; set; }
         public dynamic Value { get; set; }
         public string Time { get; set; }
 
-        public Dat(string name, dynamic value, string time)
+        public Dat(dynamic value, string time)
         {
-            Name = name;
             Value = value;
             Time = time;
         }
@@ -66,21 +64,29 @@ namespace TrendChart
 
     public class DatFile
     {
-        List<Dat> data;
-
+        Dictionary<string, List<Dat>> data;
+        
         public string FileName { get; set; }
 
         private int size;
 
         public DatFile()
         {
-            data = new List<Dat>();
+            data = new Dictionary<string, List<Dat>>();
             size = 0;
         }
 
         public int AddData(string name, dynamic value, string time)
         {
-            data.Add(new Dat(name, value, time));
+            if (data.ContainsKey(name))
+            {
+                data[name].Add(new Dat(value, time));
+            }
+            else
+            {
+                data[name] = new List<Dat>();
+                data[name].Add(new Dat(value, time));
+            }
             return size++;
         }
 
@@ -93,7 +99,7 @@ namespace TrendChart
         public void Load()
         {
             string jsonStr = File.ReadAllText(FileName);
-            data = JsonConvert.DeserializeObject<List<Dat>>(jsonStr);
+            data = JsonConvert.DeserializeObject<Dictionary<string, List<Dat>>>(jsonStr);
         }
     }
 }
