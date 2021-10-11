@@ -79,6 +79,8 @@ namespace TrendChart
         {
             Dictionary<string, List<Dat>> dic = new Dictionary<string, List<Dat>>();
 
+            Clear();
+
             foreach (var file in files)
             {
                 var jsonStr = File.ReadAllText(file);
@@ -94,6 +96,7 @@ namespace TrendChart
                     {
                         dic.Add(item.Key, item.Value);
                     }
+
                 }
             }
 
@@ -108,9 +111,12 @@ namespace TrendChart
                 for (int i = 0; i < length; i += incr)
                 {
                     var dat = item.Value[i];
+
                     AddData(item.Key, dat.Value, dat.Time);
                 }
             }
+
+            MoveEnabled = true;
         }
 
         public void AddText(string text)
