@@ -121,6 +121,7 @@ namespace TrendChart
 
         public void AddText(string text)
         {
+            splitContainer1.Panel2Collapsed = false;
             tbLog.AppendText(text + '\n');
         }
 
@@ -151,6 +152,7 @@ namespace TrendChart
             chart.Series.Clear();
             chart.ChartAreas.Clear();
             digSeries.Clear();
+            digSeriesList.Clear();
             analogSeries.Clear();
         }
 
@@ -160,7 +162,7 @@ namespace TrendChart
             var idx = digSeriesList.IndexOf(series) + 1;
             var offSet = Settings.Axis.Y.DigitalSignals.SizeOffSet;
             cont = series.Points.AddXY(time, idx - 1, idx - offSet);
-            series.Points[cont].Color = series.Color;
+            //series.Points[cont].Color = series.Color;
             series.Points[cont].Color = value ? series.Color : Color.Transparent;
             return cont;
         }
@@ -188,6 +190,7 @@ namespace TrendChart
                 var newChartArea = new ChartArea("DigitalChartArea");
                 newChartArea.Name = "DigitalChartArea";
                 newChartArea.Position = new ElementPosition(0, 0, 100, 100);
+                newChartArea.AxisX.Enabled = AxisEnabled.False;
                 newChartArea.AxisY.Enabled = AxisEnabled.False;
                 newChartArea.AxisX.Maximum = Settings.Axis.X.Size;
                 newChartArea.AxisY.Maximum = Settings.Axis.Y.DigitalSignals.Scale;
@@ -222,13 +225,14 @@ namespace TrendChart
                         newChart = new ChartArea();
                         newChart.Name = "AnalogChartArea";
                         ConfigureNewChart(ref newChart);
-                        newChart.AxisY.Enabled = AxisEnabled.True;
+                        newChart.AxisY.Enabled = AxisEnabled.False;
                     }
                 }
 
                 analogSeries.Add(series.Name, series);
                 series.ChartType = SeriesChartType.Line;
                 series.ChartArea = newChart.Name;
+                chart.ApplyPaletteColors();
             }
         }
 
@@ -236,8 +240,8 @@ namespace TrendChart
         {
             chartArea.AlignmentOrientation = AreaAlignmentOrientations.All;
             chartArea.AxisX.IsMarginVisible = false;
-            chartArea.AxisY.Enabled = AxisEnabled.False;
-            chartArea.AxisX.Enabled = AxisEnabled.False;
+            chartArea.AxisY.Enabled = AxisEnabled.True;
+            chartArea.AxisX.Enabled = AxisEnabled.True;
             chartArea.AxisX.Maximum = Settings.Axis.X.Size;
             chartArea.AlignWithChartArea = GetDigitalChartArea().Name;
             chartArea.BackColor = Color.Transparent;
