@@ -55,7 +55,8 @@ namespace TrendChart
             // splitContainer1.Panel2
             // 
             this.splitContainer1.Panel2.Controls.Add(this.tbLog);
-            this.splitContainer1.Size = new System.Drawing.Size(527, 412);
+            this.splitContainer1.Panel2Collapsed = true;
+            this.splitContainer1.Size = new System.Drawing.Size(659, 412);
             this.splitContainer1.SplitterDistance = 347;
             this.splitContainer1.TabIndex = 3;
             // 
@@ -63,8 +64,6 @@ namespace TrendChart
             // 
             this.chart.AntiAliasing = System.Windows.Forms.DataVisualization.Charting.AntiAliasingStyles.None;
             this.chart.Dock = System.Windows.Forms.DockStyle.Fill;
-            legend1.BackColor = System.Drawing.Color.Transparent;
-            legend1.LegendStyle = System.Windows.Forms.DataVisualization.Charting.LegendStyle.Column;
             legend1.Name = "Legend1";
             this.chart.Legends.Add(legend1);
             this.chart.Location = new System.Drawing.Point(0, 0);
@@ -72,8 +71,8 @@ namespace TrendChart
             series1.Legend = "Legend1";
             series1.Name = "Series1";
             this.chart.Series.Add(series1);
-            this.chart.Size = new System.Drawing.Size(527, 347);
-            this.chart.TabIndex = 1;
+            this.chart.Size = new System.Drawing.Size(659, 412);
+            this.chart.TabIndex = 3;
             this.chart.Text = "chart1";
             // 
             // tbLog
@@ -83,7 +82,7 @@ namespace TrendChart
             this.tbLog.Multiline = true;
             this.tbLog.Name = "tbLog";
             this.tbLog.ReadOnly = true;
-            this.tbLog.Size = new System.Drawing.Size(527, 61);
+            this.tbLog.Size = new System.Drawing.Size(659, 61);
             this.tbLog.TabIndex = 3;
             // 
             // Trend
@@ -92,7 +91,7 @@ namespace TrendChart
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.Controls.Add(this.splitContainer1);
             this.Name = "Trend";
-            this.Size = new System.Drawing.Size(527, 412);
+            this.Size = new System.Drawing.Size(659, 412);
             this.splitContainer1.Panel1.ResumeLayout(false);
             this.splitContainer1.Panel2.ResumeLayout(false);
             this.splitContainer1.Panel2.PerformLayout();
