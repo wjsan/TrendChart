@@ -30,8 +30,6 @@ namespace Test
         private void InitializeComponent()
         {
             this.components = new System.ComponentModel.Container();
-            this.trend = new TrendChart.Trend();
-            this.datalogger = new TrendChart.Datalogger(this.components);
             this.esp8266 = new System.IO.Ports.SerialPort(this.components);
             this.menu = new System.Windows.Forms.MenuStrip();
             this.trendToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
@@ -39,22 +37,10 @@ namespace Test
             this.stopToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.clearToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.openDatToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.trend = new TrendChart.Trend();
+            this.datalogger = new TrendChart.Datalogger(this.components);
             this.menu.SuspendLayout();
             this.SuspendLayout();
-            // 
-            // trend
-            // 
-            this.trend.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.trend.Location = new System.Drawing.Point(0, 24);
-            this.trend.MoveEnabled = false;
-            this.trend.Name = "trend";
-            this.trend.Size = new System.Drawing.Size(800, 545);
-            this.trend.TabIndex = 3;
-            // 
-            // datalogger
-            // 
-            this.datalogger.Directory = "C:\\dat";
-            this.datalogger.MaxSize = 1000;
             // 
             // esp8266
             // 
@@ -110,6 +96,20 @@ namespace Test
             this.openDatToolStripMenuItem.Size = new System.Drawing.Size(124, 22);
             this.openDatToolStripMenuItem.Text = "Open Dat";
             this.openDatToolStripMenuItem.Click += new System.EventHandler(this.openDatToolStripMenuItem_Click);
+            // 
+            // trend
+            // 
+            this.trend.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.trend.Location = new System.Drawing.Point(0, 24);
+            this.trend.MoveEnabled = false;
+            this.trend.Name = "trend";
+            this.trend.Size = new System.Drawing.Size(800, 545);
+            this.trend.TabIndex = 3;
+            // 
+            // datalogger
+            // 
+            this.datalogger.Directory = "C:\\dat";
+            this.datalogger.MaxSize = 1000;
             // 
             // LumiLogger
             // 
