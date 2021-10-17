@@ -19,13 +19,19 @@ namespace Test
         private void timerTrend_Tick(object sender, EventArgs e)
         {
             string time = DateTime.Now.ToString("HH:mm:ss.fff");
-            trend.AddData("Digital 1", DateTime.Now.Second % 2 == 0, time);
-            trend.AddData("Digital 2", DateTime.Now.Second % 2 != 0, time);
-            trend.AddData("Analog", DateTime.Now.Millisecond + (DateTime.Now.Second * 1000),time);
 
-            datalogger.AddData("Digital 1", DateTime.Now.Second % 2 == 0, time);
-            datalogger.AddData("Digital 2", DateTime.Now.Second % 2 != 0, time);
-            datalogger.AddData("Analog", DateTime.Now.Millisecond + (DateTime.Now.Second * 1000), time);
+            bool dig1 = DateTime.Now.Second % 2 == 0;
+            bool dig2 = DateTime.Now.Second % 2 != 0;
+            int ana = DateTime.Now.Millisecond + (DateTime.Now.Second * 1000);
+
+            trend.AddData("Digital 1", dig1, time);
+            trend.AddData("Digital 2", dig2, time);
+            trend.AddData("Analog", ana,time);
+
+            time = DateTime.Now.ToString("MM/dd/yyyy ") + time;
+            datalogger.AddData("Digital 1",dig1, time);
+            datalogger.AddData("Digital 2", dig2, time);
+            datalogger.AddData("Analog", ana, time);
         }
 
         private void Form1_Load(object sender, EventArgs e)
