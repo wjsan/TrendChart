@@ -23,6 +23,7 @@ namespace TrendChart
         public Datalogger()
         {
             InitializeComponent();
+            Init();
         }
 
         public Datalogger(IContainer container)
@@ -30,6 +31,21 @@ namespace TrendChart
             container.Add(this);
 
             InitializeComponent();
+            Init();
+        }
+
+        public void Init()
+        {
+            var dir = new DirectoryInfo(Directory);
+            var files = dir.GetFiles();
+
+            foreach (var file in files)
+            {
+                if (file.Extension == ".dat")
+                {
+                    fileCount++;
+                }
+            }
         }
 
         public void AddData(string name, dynamic value, string time)
