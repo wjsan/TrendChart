@@ -38,9 +38,7 @@ namespace TrendChart
             {
                 foreach (var chartArea in chart.ChartAreas)
                 {
-                    //chartArea.AxisX.Minimum -= e.Delta;
-                    chartArea.AxisX.Maximum += e.Delta;
-                    Settings.Axis.X.Size = chartArea.AxisX.Maximum - chartArea.AxisX.Minimum;
+                    chartArea.AxisX.Minimum += e.Delta;
                 }
             }
             else
@@ -128,7 +126,7 @@ namespace TrendChart
         public int AddData(string name, dynamic value, string time, bool removeInvisiblePoints = true, bool createNewArea = false)
         {
             var trendIdx = 0;
-            var series = GetSeries(name, value, createNewArea);
+            Series series = GetSeries(name, value, createNewArea);
 
             if (value == null) return 0;
             if (value is bool)
@@ -137,7 +135,12 @@ namespace TrendChart
             }
             else
             {
+                var chartArea = chart.ChartAreas[series.ChartArea];
                 trendIdx = series.Points.AddXY(time, value);
+                if(value >= chartArea.AxisY.Maximum)
+                {
+                    chartArea.RecalculateAxesScale();
+                }
             }
             if (trendIdx > Settings.Axis.X.Size && removeInvisiblePoints)
             {
@@ -162,7 +165,6 @@ namespace TrendChart
             var idx = digSeriesList.IndexOf(series) + 1;
             var offSet = Settings.Axis.Y.DigitalSignals.SizeOffSet;
             cont = series.Points.AddXY(time, idx - 1, idx - offSet);
-            //series.Points[cont].Color = series.Color;
             series.Points[cont].Color = value ? series.Color : Color.Transparent;
             return cont;
         }
