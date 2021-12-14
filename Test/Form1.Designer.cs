@@ -37,8 +37,9 @@ namespace Test
             this.stopToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.clearToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.openDatToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.datalogger = new TrendChart.Datalogger(this.components);
+            this.autoScaleToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.trend = new TrendChart.Trend();
+            this.datalogger = new TrendChart.Datalogger(this.components);
             this.menu.SuspendLayout();
             this.SuspendLayout();
             // 
@@ -63,7 +64,8 @@ namespace Test
             this.startToolStripMenuItem,
             this.stopToolStripMenuItem,
             this.clearToolStripMenuItem,
-            this.openDatToolStripMenuItem});
+            this.openDatToolStripMenuItem,
+            this.autoScaleToolStripMenuItem});
             this.trendToolStripMenuItem.Name = "trendToolStripMenuItem";
             this.trendToolStripMenuItem.Size = new System.Drawing.Size(48, 20);
             this.trendToolStripMenuItem.Text = "Trend";
@@ -71,43 +73,50 @@ namespace Test
             // startToolStripMenuItem
             // 
             this.startToolStripMenuItem.Name = "startToolStripMenuItem";
-            this.startToolStripMenuItem.Size = new System.Drawing.Size(124, 22);
+            this.startToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
             this.startToolStripMenuItem.Text = "Start";
             this.startToolStripMenuItem.Click += new System.EventHandler(this.startToolStripMenuItem_Click);
             // 
             // stopToolStripMenuItem
             // 
             this.stopToolStripMenuItem.Name = "stopToolStripMenuItem";
-            this.stopToolStripMenuItem.Size = new System.Drawing.Size(124, 22);
+            this.stopToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
             this.stopToolStripMenuItem.Text = "Stop";
             this.stopToolStripMenuItem.Click += new System.EventHandler(this.stopToolStripMenuItem_Click);
             // 
             // clearToolStripMenuItem
             // 
             this.clearToolStripMenuItem.Name = "clearToolStripMenuItem";
-            this.clearToolStripMenuItem.Size = new System.Drawing.Size(124, 22);
+            this.clearToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
             this.clearToolStripMenuItem.Text = "Clear";
             this.clearToolStripMenuItem.Click += new System.EventHandler(this.clearToolStripMenuItem_Click);
             // 
             // openDatToolStripMenuItem
             // 
             this.openDatToolStripMenuItem.Name = "openDatToolStripMenuItem";
-            this.openDatToolStripMenuItem.Size = new System.Drawing.Size(124, 22);
+            this.openDatToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
             this.openDatToolStripMenuItem.Text = "Open Dat";
             this.openDatToolStripMenuItem.Click += new System.EventHandler(this.openDatToolStripMenuItem_Click);
             // 
-            // datalogger
+            // autoScaleToolStripMenuItem
             // 
-            this.datalogger.Directory = "C:\\dat";
-            this.datalogger.MaxSize = 1000;
+            this.autoScaleToolStripMenuItem.Name = "autoScaleToolStripMenuItem";
+            this.autoScaleToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
+            this.autoScaleToolStripMenuItem.Text = "AutoScale";
             // 
             // trend
             // 
             this.trend.Dock = System.Windows.Forms.DockStyle.Fill;
             this.trend.Location = new System.Drawing.Point(0, 24);
+            this.trend.MoveEnabled = false;
             this.trend.Name = "trend";
             this.trend.Size = new System.Drawing.Size(673, 536);
             this.trend.TabIndex = 2;
+            // 
+            // datalogger
+            // 
+            this.datalogger.Directory = "C:\\dat";
+            this.datalogger.MaxSize = 1000;
             // 
             // Form1
             // 
@@ -138,5 +147,6 @@ namespace Test
         private System.Windows.Forms.ToolStripMenuItem clearToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem openDatToolStripMenuItem;
         private TrendChart.Trend trend;
+        private System.Windows.Forms.ToolStripMenuItem autoScaleToolStripMenuItem;
     }
 }
