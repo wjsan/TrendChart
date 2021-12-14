@@ -1,10 +1,4 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.ComponentModel;
-using System.Data;
-using System.Drawing;
-using System.Linq;
-using System.Text;
 using System.Windows.Forms;
 
 namespace Test
@@ -18,7 +12,7 @@ namespace Test
 
         private void timerTrend_Tick(object sender, EventArgs e)
         {
-            string time = DateTime.Now.ToString("HH:mm:ss.fff");
+            string time = DateTime.Now.ToString("HH:mm:ss.ffff");
 
             bool dig1 = DateTime.Now.Second % 2 == 0;
             bool dig2 = DateTime.Now.Second % 2 != 0;
